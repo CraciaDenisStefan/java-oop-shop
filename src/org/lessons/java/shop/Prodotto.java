@@ -20,14 +20,14 @@ public class Prodotto {
     }
     
  
-    public int getCodice() {
+    public long getCodice() {
         return codice;
     }
 
   
     private void setCodice() {
     	Random random = new Random();
-        this.codice = random.nextInt(1000);
+        this.codice = random.nextInt(1,100000000);
     }
 
     
@@ -76,6 +76,27 @@ public class Prodotto {
         return codice + "-" + nome;
     }
 
+    private String addZeroCodice() {
+        String codiceStr = String.valueOf(codice);
+        int lunghezzaCodice = codiceStr.length();
+
+   
+        if (lunghezzaCodice < 8) {
+            int zeriDaAggiungere = 8 - lunghezzaCodice;
+            StringBuilder codiceConPad = new StringBuilder();
+
+        
+            for (int i = 0; i < zeriDaAggiungere; i++) {
+                codiceConPad.append("0");
+            }
+
+            codiceConPad.append(codiceStr);
+            return codiceConPad.toString();
+        }
+
+  
+        return codiceStr;
+    }
   
     
     @Override
@@ -87,7 +108,8 @@ public class Prodotto {
                 + "Prezzo: " + getPrezzo() + " EUR\n" 
                 + "IVA: " + getIva() + "%\n" 
                 + "Prezzo con IVA: " + getPrezzoConIva() + " EUR\n"
-                + "Nome Esteso: " + getNomeEsteso() + "\n" ;
+                + "Nome Esteso: " + getNomeEsteso() + "\n" 
+        		+ "Codice con pad: " +addZeroCodice() + "\n" ;
                 
     }
 
